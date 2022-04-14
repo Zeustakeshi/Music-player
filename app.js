@@ -1,14 +1,18 @@
-﻿const $ = document.querySelector.bind(document)
+﻿
+const PLAYER_STORAGE_KEY = 'MUSIC_PLAYER'
+const $ = document.querySelector.bind(document)
 const $$ = document.querySelectorAll.bind(document)
 const cdThumb = $(".cd-thumb")
 const header = $("header>h2")
 const audio = $("#audio")
+const playList = $(".playlist")
 const btnPlay = $(".btn-toggle-play")
 const progress = $('#progress')
 const btnNext = $(".btn-next")
 const btnPrev = $(".btn-prev")
 const btnRandom = $(".btn-random")
 const btnRepeat = $(".btn-repeat")
+const smallWave = $(".small-wave")
 const app = {
     currentIndex: 0,
     isPlaying : false,
@@ -16,6 +20,11 @@ const app = {
     isRepeat: false,
     isNextPrev: false,
     isBtnNone : false,
+    config : JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY)) || {},
+    setConfig : function(key, value) {
+        this.config[key] = value;
+        localStorage.setItem(PLAYER_STORAGE_KEY, JSON.stringify(this.config));
+    }, 
     songs : [
         {
             id : "1",
@@ -54,7 +63,7 @@ const app = {
         },
         {
             id : "6",
-            name : "The Joker And The Queen (Preview)",
+            name : "The Joker And The Queen ",
             path: "./song/TheJokerAndTheQueen.mp3",
             image : "https://avatar-ex-swe.nixcdn.com/song/2022/02/11/4/8/f/8/1644547789570_640.jpg",
             singer : "Ed Sheeran"
@@ -108,12 +117,54 @@ const app = {
             image : "https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_webp/cover/5/b/8/b/5b8b7cd3d1434afa3b2b9854efdc8756.jpg",
             singer : "Hồng Thanh, DJ Mie"
         },
+	    {
+            id : "14",
+            name : "Roots",
+            path: "http://api.mp3.zing.vn/api/streaming/audio/ZWAE6DBB/320",
+            image : "https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_webp/cover/4/2/f/1/42f15c18e2b4ad65bac570a29a09d477.jpg",
+            singer : "Valerie Broussard, Galantis"
+        },
+	    {
+            id : "15",
+            name : "THATS WHAT I WANT",
+            path: "http://api.mp3.zing.vn/api/streaming/audio/ZU6BI00F/320",
+            image : "https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_webp/cover/6/4/b/a/64bae79a86925614bdfa77e31368603e.jpg",
+            singer : "Lil Nas X"
+        },
+	    {
+            id : "16",
+            name : "Pinocchio",
+            path: "http://api.mp3.zing.vn/api/streaming/audio/ZWZEEA9I/320",
+            image : "https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_webp/covers/9/1/91e33dc6e0235fa1d2f2cd8e013fbe54_1326638023.jpg",
+            singer : "Crazy Frog"
+        },
+	    {
+            id : "17",
+            name : "Daddy DJ",
+            path: "http://api.mp3.zing.vn/api/streaming/audio/ZWZEE7OD/320",
+            image : "https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_webp/covers/f/d/fd2999414db6b4b2e0e4003902e264bc_1325914689.jpg",
+            singer : "Crazy Frog"
+        },
+	    {
+            id : "18",
+            name : "POOPOO",
+            path: "http://api.mp3.zing.vn/api/streaming/audio/ZU7EEOFB/320",
+            image : "https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_webp/cover/1/c/a/4/1ca4a7679da1210fd96dae82b61d1912.jpg",
+            singer : "Larva"
+        },
+	    {
+            id : "19",
+            name : "As It Was",
+            path: "http://api.mp3.zing.vn/api/streaming/audio/ZZ9AUFD7/320",
+            image : "https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_webp/cover/a/7/7/4/a774fcf4e0d30ef6c689c7c65ff941bc.jpg",
+            singer : "Harry Styles"
+        },
     ],
     historySong: [],
     render:function(){
-        const htmls = this.songs.map(function(song){
+        const htmls = this.songs.map(function(song, index){
             return (
-               `<div class="song">
+               `<div class="song" data-index = "${index}">
                     <div class="thumb"
                         style="background-image: url(${song.image})">
                     </div>
@@ -127,7 +178,7 @@ const app = {
                 </div>` 
             )
         })
-        $(".playlist").innerHTML = htmls.join("")
+        playList.innerHTML = htmls.join("")
     },
     handleEvents: function(){
         const _this = this
@@ -148,6 +199,9 @@ const app = {
             const cdNewWidth = cdWidth - scrollTop
             cd.style.width = cdNewWidth > 0 ?`${cdNewWidth}px` : 0
             cd.style.opacity = cdNewWidth / cdWidth
+            if(_this.isPlaying){
+                cd.style.width == "0px" ? smallWave.style.display = 'inline-block' : smallWave.style.display = 'none'
+            }
         }
         //event handling when end song
         const endSong = () =>{
@@ -164,7 +218,7 @@ const app = {
                             progress.max = audio.duration
                         }, 1000);
                         audio.play()
-                    }, 2000)
+                    }, 1200)
                 } 
             }
         }
@@ -194,6 +248,7 @@ const app = {
             audio.onpause = function(){
                 _this.isPlaying = false
                 player.classList.remove("playing")
+                smallWave.style.display = 'none'
             }
             progress.onchange = function(e){
                 audio.currentTime = e.target.value 
@@ -230,9 +285,13 @@ const app = {
                 _this.isRepeat = false
                 btnRepeat.classList.remove("active")
                 SongTimeUpdate()
+                _this.setConfig("isRepeat" , _this.isRepeat)
+                _this.setConfig("isRandom" , _this.isRanDom)
             }else{
                 btnRandom.classList.remove("active")
                 _this.isRanDom = false
+                _this.setConfig("isRepeat" , _this.isRepeat)
+                _this.setConfig("isRandom" , _this.isRanDom)
             }
         })
         //event handling repeat
@@ -243,9 +302,35 @@ const app = {
                 _this.isRanDom = false
                 btnRandom.classList.remove("active")
                 SongTimeUpdate()
+                _this.setConfig("isRepeat" , _this.isRepeat)
+                _this.setConfig("isRandom" , _this.isRanDom)
             }else{
                 btnRepeat.classList.remove("active")
                 _this.isRepeat = false
+                _this.setConfig("isRepeat" , _this.isRepeat)
+                _this.setConfig("isRandom" , _this.isRanDom)
+            }
+
+        })
+        playList.addEventListener("click", function(e){
+            const songNode = e.target.closest(".song:not(.active)") 
+            const songOption = e.target.closest(".option") 
+            if(songNode || songOption){
+                // click on the song item not active
+                if(songNode && !songOption){
+                    _this.selectSong(songNode)  
+                    setTimeout(() => {
+                        progress.max = audio.duration
+                    }, 1000); 
+                    if(_this.isPlaying){
+                        audio.play()
+                        rotate.play()
+                    }
+                }
+                // click on the option
+                if(songOption){
+
+                }
             }
         })
     },
@@ -288,8 +373,8 @@ const app = {
     },
     prevSong : function(){
         this.currentIndex--
-        if (this.historySong.length !== 1){
-            let idSong = this.historySong[this.historySong.length - 1].id 
+        if (this.historySong.length !== 1 && this.historySong[this.historySong.length - 1]){
+            let idSong = this.historySong[this.historySong.length - 1].id
             this.currentIndex = parseInt(idSong) - 1
             this.updateHistorySong()
         }
@@ -358,10 +443,31 @@ const app = {
     },
     scrollToActiveSong: function(){
         setTimeout(() => {
-            $(".song.active").scrollIntoView({behavior: "smooth", block: "center", inline: "center"});
-        },200)
+            if(this.currentIndex < Math.floor(this.songs.length / 4)){
+                $(".song.active").scrollIntoView({behavior: "smooth", block: "end", inline: "center"});
+            }else{
+                $(".song.active").scrollIntoView({behavior: "smooth", block: "center", inline: "center"});
+            }
+        },100)
+    },
+    selectSong: function(songNode){
+        this.updateHistorySong(this.songs[this.currentIndex])
+        if (btnPrev.classList[2] === "btn-none"){
+            btnPrev.classList.remove("btn-none") 
+        }
+        this.currentIndex = Number(songNode.dataset.index )
+        if(this.songs[this.currentIndex]){
+            this.loadCurrentSong()
+        }
+    },
+    loadConfig: function(){
+        this.isRanDom = this.config.isRandom
+        this.isRepeat = this.config.isRepeat
+        btnRandom.classList.toggle("active", this.isRanDom)
+        btnRepeat.classList.toggle("active", this.isRepeat)
     },
     start: function(){
+        this.loadConfig()
         this.render();
         this.loadFirstSong()
         this.defineproperty()
@@ -371,5 +477,3 @@ const app = {
 }
 app.start()
 
-// const songItem = $$(".song")
-// songItem[2].classList.add("active")
