@@ -351,3 +351,141 @@ fetch(API)
             app.start()
             
         })
+    .catch ((error) => {
+        app.songs = [
+            {
+                "id" : "1",
+                "name" : "Monsters",
+                "path": "./song/Monsters.mp3",
+                "image" : "https://avatar-ex-swe.nixcdn.com/song/2019/09/05/2/6/c/4/1567654853186_640.jpg",
+                "singer" : "Timeflies, Katie Sky"
+            },
+            {
+                "id" : "2",
+                "name" : "HALLOWEEN MONSTERS",
+                "path": "http://api.mp3.zing.vn/api/streaming/audio/ZU7EEOF9/320",
+                "image" : "https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_webp/cover/5/9/b/1/59b166c19132c0020d8745c3c5841b54.jpg",
+                "singer" : "Larva"
+            },
+            {
+                "id" : "3",
+                "name" : "Reality",
+                "path": "./song/Reality.mp3",
+                "image" : "https://www.voca.vn/assets/img/news/avt%20cover%20ytb-1545703316.jpg",
+                "singer" : "Lost Frequencies, Janieck Devy"
+            },
+            {
+                "id" : "4",
+                "name" : "The Fat Rat Remix",
+                "path": "./song/TheFatRat.mp3",
+                "image" : "https://avatar-nct.nixcdn.com/singer/avatar/2016/09/28/b/3/d/c/1475049690234.jpg",
+                "singer" : "TheFatRat"
+            },
+            {
+                "id" : "5",
+                "name" : "Talking To The Moon",
+                "path": "./song/TalkingToTheMoon.mp3",
+                "image" : "https://avatar-nct.nixcdn.com/song/2020/08/06/6/0/8/0/1596678685153.jpg",
+                "singer" : "Bruno Mars"
+            },
+            {
+                "id" : "6",
+                "name" : "The Joker And The Queen ",
+                "path": "./song/TheJokerAndTheQueen.mp3",
+                "image" : "https://avatar-ex-swe.nixcdn.com/song/2022/02/11/4/8/f/8/1644547789570_640.jpg",
+                "singer" : "Ed Sheeran"
+            },
+            {
+                "id" : "7",
+                "name" : "STAY",
+                "path": "http://api.mp3.zing.vn/api/streaming/audio/ZUWIB0AW/320",
+                "image" : "https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_webp/cover/f/8/8/f/f88f4e0c0e6972c00bfa535ad06019e6.jpg",
+                "singer" : "The Kid LAROI, Justin Bieber"
+            },
+            {
+                "id" : "8",
+                "name" : "Into Your Arms",
+                "path": "./song/IntoYourArms.mp3",
+                "image" : "https://angartwork.akamaized.net/?id=88180482&size=640",
+                "singer" : "Lev Akro & Allen Wish"
+            },
+            {
+                "id" : "9",
+                "name" : "Yume to Hazakura",
+                "path": "http://api.mp3.zing.vn/api/streaming/audio/ZW66AZB0/320",
+                "image" : "https://wallpaperaccess.com/full/6165380.jpg",
+                "singer" : "WOIM Collection"
+            },
+            {
+                "id" : "10",
+                "name" : "Đế Vương",
+                "path": "./song/de-vuong.mp3",
+                "image" : "https://kienthucmoi.net/img/2021/12/13/loi-bai-hat-de-vuong-al.jpg",
+                "singer": "Đình Dũng"
+            },
+            {
+                "id" : "11",
+                "name" : "TGSN - Siren (feat. Tlinh & RZ Mas)",
+                "path": "./song/Siren-TGSN-Tlinh.mp3",
+                "image" : "https://o.vdoc.vn/data/image/2021/06/04/loi-bai-hat-siren-tgsn-tlinh-rzmas-700-size-640x335-znd.jpg",
+                "singer" : "feat. Tlinh & RZ Mas"
+            },
+            {
+                "id" : "12",
+                "name" : "Yêu Đương Khó Quá Thì Chạy Về Khóc Với Anh",
+                "path": "./song/YeuDuongKhoQuaThiChayVeKhocVoiAnh.mp3",
+                "image" : "https://avatar-nct.nixcdn.com/song/2022/01/26/4/e/f/e/1643184497199.jpg",
+                "singer" : "ERIK"
+            },
+            {
+                "id" : "13",
+                "name" : "Đám Cưới Nha?",
+                "path": "http://api.mp3.zing.vn/api/streaming/audio/ZZ8FBUW9/320",
+                "image" : "https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_webp/cover/5/b/8/b/5b8b7cd3d1434afa3b2b9854efdc8756.jpg",
+                "singer" : "Hồng Thanh, DJ Mie"
+            },
+            {
+                "id" : "14",
+                "name" : "Roots",
+                "path": "http://api.mp3.zing.vn/api/streaming/audio/ZWAE6DBB/320",
+                "image" : "https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_webp/cover/4/2/f/1/42f15c18e2b4ad65bac570a29a09d477.jpg",
+                "singer" : "Valerie Broussard, Galantis"
+            },
+            {
+                "id" : "15",
+                "name" : "THATS WHAT I WANT",
+                "path": "http://api.mp3.zing.vn/api/streaming/audio/ZU6BI00F/320",
+                "image" : "https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_webp/cover/6/4/b/a/64bae79a86925614bdfa77e31368603e.jpg",
+                "singer" : "Lil Nas X"
+            },
+            {
+                "id" : "16",
+                "name" : "Pinocchio",
+                "path": "http://api.mp3.zing.vn/api/streaming/audio/ZWZEEA9I/320",
+                "image" : "https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_webp/covers/9/1/91e33dc6e0235fa1d2f2cd8e013fbe54_1326638023.jpg",
+                "singer" : "Crazy Frog"
+            },
+            {
+                "id" : "17",
+                "name" : "Daddy DJ",
+                "path": "http://api.mp3.zing.vn/api/streaming/audio/ZWZEE7OD/320",
+                "image" : "https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_webp/covers/f/d/fd2999414db6b4b2e0e4003902e264bc_1325914689.jpg",
+                "singer" : "Crazy Frog"
+            },
+            {
+                "id" : "18",
+                "name" : "POOPOO",
+                "path": "http://api.mp3.zing.vn/api/streaming/audio/ZU7EEOFB/320",
+                "image" : "https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_webp/cover/1/c/a/4/1ca4a7679da1210fd96dae82b61d1912.jpg",
+                "singer" : "Larva"
+            },
+            {
+                "id" : "19",
+                "name" : "As It Was",
+                "path": "http://api.mp3.zing.vn/api/streaming/audio/ZZ9AUFD7/320",
+                "image" : "https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_webp/cover/a/7/7/4/a774fcf4e0d30ef6c689c7c65ff941bc.jpg",
+                "singer" : "Harry Styles"
+            }
+        ] 
+        app.start()
+    }) 
